@@ -21,6 +21,7 @@ const makeGrid = (size: number) => R.times(makeRow(size), size);
 
 export default () => {
   const size: number = useSelector(getGridSize);
+
   return <View style={styles.container}>{makeGrid(size)}</View>;
 };
 

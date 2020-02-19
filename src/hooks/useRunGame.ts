@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as R from "ramda";
-import { setActiveTile, getGridSize, resetGame } from "../ducks/game";
+import {
+  setActiveTile,
+  getGridSize,
+  stopGame,
+  updateHighestScore
+} from "../ducks/game";
+import { useUpdateHighestScore } from "./useUpdateHighestScore";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
@@ -15,7 +21,7 @@ export default () => {
   const isActiveTile = useRef(false);
   const gridSize: number = useSelector(getGridSize);
 
-  const dispatchSetRandomTitle = () =>
+  const dispatchActivateRandomTitle = () =>
     R.compose(dispatch, setActiveTile, getRandomTile)(gridSize);
 
   useEffect(() => {
@@ -23,14 +29,15 @@ export default () => {
       if (isActiveTile.current) {
         dispatch(setActiveTile(null));
       } else {
-        dispatchSetRandomTitle();
+        dispatchActivateRandomTitle();
       }
       isActiveTile.current = !isActiveTile.current;
     }, 600);
 
-    // Clearup on unmount - stop interval and reset game stats
     return () => {
-      dispatch(resetGame());
+      // Clearup on unmount - stop interval, reset game stats and update highest score
+      dispatch(stopGame());
+      dispatch(updateHighestScore());
       clearInterval(interval);
     };
   });

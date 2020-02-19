@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { getActiveTile, incrementScore, resetGame } from "../ducks/game";
+import { getActiveTile, incrementScore } from "../ducks/game";
 import { Screens } from "../constants";
+
+import { COLORS } from "../style";
 
 interface Props {
   tileId: string;
@@ -29,14 +31,16 @@ export default ({ tileId }: Props) => {
     } else {
       alert("Game over");
       navigate(Screens.MAIN_MENU);
-      dispatch(resetGame());
     }
   }, [isActive]);
 
   return (
     <View style={styles.container} key={tileId}>
       <TouchableOpacity
-        style={{ flex: 1, backgroundColor: isActive ? "green" : "white" }}
+        style={{
+          flex: 1,
+          backgroundColor: isActive ? COLORS.Secondary : "white"
+        }}
         onPressIn={handlePress}
       >
         <Text />
