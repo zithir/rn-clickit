@@ -2,14 +2,18 @@ import { createActions, handleActions } from "redux-actions";
 import * as R from "ramda";
 import { storeData } from "../storage";
 
+// TODO: Make individual duck for configuration
+
 interface State {
   gridSize: number;
+  gameSpeed: number;
   activeTile: null | string;
   currentScore: number;
   highestScore: number;
 }
 const defaultState: State = {
   gridSize: 3,
+  gameSpeed: 750,
   activeTile: null,
   currentScore: 0,
   highestScore: 0
@@ -21,6 +25,7 @@ interface Actions {
 
 export const {
   setGridSize,
+  setGameSpeed,
   setActiveTile,
   incrementScore,
   stopGame,
@@ -29,6 +34,7 @@ export const {
   updateHighestScore
 }: Actions = createActions(
   "SET_GRID_SIZE",
+  "SET_GAME_SPEED",
   "SET_ACTIVE_TILE",
   "INCREMENT_SCORE",
   "STOP_GAME",
@@ -38,6 +44,7 @@ export const {
 );
 
 export const getGridSize: Function = R.prop("gridSize");
+export const getGameSpeed: Function = R.prop("gameSpeed");
 export const getActiveTile: Function = R.prop("activeTile");
 export const getCurrentScore: Function = R.prop("currentScore");
 export const getHighestScore: Function = R.prop("highestScore");
@@ -66,6 +73,10 @@ const reducer: Function = handleActions(
     [setGridSize]: (state, { payload }) => ({
       ...state,
       gridSize: payload
+    }),
+    [setGameSpeed]: (state, { payload }) => ({
+      ...state,
+      gameSpeed: payload
     }),
     [setActiveTile]: (state, { payload }) => ({
       ...state,

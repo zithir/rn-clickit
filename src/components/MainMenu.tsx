@@ -1,11 +1,10 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 
-import SizePicker from "./SizePicker";
+import Configuration from "./Configuration";
 import MaxScore from "./MaxScore";
 import { Screens } from "../constants";
 import { useGetHighestScore } from "../hooks/useGetHighestScore";
-import { useUpdateHighestScore } from "../hooks/useUpdateHighestScore";
 
 import { Navigation } from "../types";
 
@@ -20,12 +19,12 @@ export default ({ navigation: { navigate } }: Navigation) => {
         <MaxScore />
       </View>
       <View style={globalStyles.centerItems}>
-        <SizePicker />
+        <Configuration />
       </View>
       <View style={globalStyles.centerItems}>
         <TouchableOpacity
           style={[styles.bigButton]}
-          onPress={() => navigate(Screens.GAME, { name: "Jane" })}
+          onPress={() => navigate(Screens.GAME)}
         >
           <Text style={styles.bigButton_text}>Start game</Text>
         </TouchableOpacity>

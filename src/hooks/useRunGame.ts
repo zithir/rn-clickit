@@ -5,9 +5,9 @@ import {
   setActiveTile,
   getGridSize,
   stopGame,
-  updateHighestScore
+  updateHighestScore,
+  getGameSpeed
 } from "../ducks/game";
-import { useUpdateHighestScore } from "./useUpdateHighestScore";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
@@ -20,6 +20,7 @@ export default () => {
   const dispatch = useDispatch();
   const isActiveTile = useRef(false);
   const gridSize: number = useSelector(getGridSize);
+  const gameSpeed: number = useSelector(getGameSpeed);
 
   const dispatchActivateRandomTitle = () =>
     R.compose(dispatch, setActiveTile, getRandomTile)(gridSize);
@@ -32,7 +33,7 @@ export default () => {
         dispatchActivateRandomTitle();
       }
       isActiveTile.current = !isActiveTile.current;
-    }, 600);
+    }, gameSpeed);
 
     return () => {
       // Clearup on unmount - stop interval, reset game stats and update highest score
