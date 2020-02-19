@@ -3,20 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import * as R from "ramda";
 import { setActiveTile, getGridSize, resetGame } from "../ducks/game";
 
-const getRandomInt = max => Math.floor(Math.random() * max);
+const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
-const getRandomTile = gridSize =>
+const getRandomTile = (gridSize: number) =>
   `${getRandomInt(gridSize)}${getRandomInt(gridSize)}`;
 
-// The main game flow
+// The handles active game session
 
-export default navigate => {
+export default () => {
   const dispatch = useDispatch();
   const isActiveTile = useRef(false);
-  const gridSize = useSelector(getGridSize);
+  const gridSize: number = useSelector(getGridSize);
 
   const dispatchSetRandomTitle = () =>
     R.compose(dispatch, setActiveTile, getRandomTile)(gridSize);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (isActiveTile.current) {

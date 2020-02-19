@@ -13,7 +13,7 @@ const store = createStore(gameReducer);
 const Stack = createStackNavigator();
 
 const App = () => {
-  const score = useSelector(getScore);
+  const score: number = useSelector(getScore);
 
   return (
     <NavigationContainer>

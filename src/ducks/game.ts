@@ -1,31 +1,35 @@
-import {
-  createActions,
-  createAction,
-  handleActions,
-  combineActions
-} from "redux-actions";
+import { createActions, handleActions } from "redux-actions";
 
 import * as R from "ramda";
 
-const defaultState = { gridSize: 3, activeTile: null, score: 0 };
+interface State {
+  gridSize: number;
+  activeTile: null | string;
+  score: number;
+}
+const defaultState: State = { gridSize: 3, activeTile: null, score: 0 };
+
+interface Actions {
+  [key: string]: Function;
+}
 
 export const {
   setGridSize,
   setActiveTile,
   incrementScore,
   resetGame
-} = createActions(
+}: Actions = createActions(
   "SET_GRID_SIZE",
   "SET_ACTIVE_TILE",
   "INCREMENT_SCORE",
   "RESET_GAME"
 );
 
-export const getGridSize = R.prop("gridSize");
-export const getActiveTile = R.prop("activeTile");
-export const getScore = R.prop("score");
+export const getGridSize: Function = R.prop("gridSize");
+export const getActiveTile: Function = R.prop("activeTile");
+export const getScore: Function = R.prop("score");
 
-const reducer = handleActions(
+const reducer: Function = handleActions(
   {
     [setGridSize]: (state, action) => ({
       ...state,

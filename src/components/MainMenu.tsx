@@ -1,11 +1,12 @@
 import React from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
-import PropTypes from "prop-types";
 
 import SizePicker from "./SizePicker";
 import { Screens } from "../constants";
 
-const MainMenu = ({ navigation: { navigate } }) => (
+import { Navigation } from "../types";
+
+export default ({ navigation: { navigate } }: Navigation) => (
   <View style={styles.container}>
     <SizePicker />
     <Button
@@ -14,10 +15,6 @@ const MainMenu = ({ navigation: { navigate } }) => (
     />
   </View>
 );
-
-MainMenu.propTypes = {};
-
-export default MainMenu;
 
 const styles = StyleSheet.create({
   container: {

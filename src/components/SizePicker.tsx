@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Picker, View, Text } from "react-native";
-import { getGridSize, setGridSize } from "../ducks";
+import { getGridSize, setGridSize } from "../ducks/game";
 
 const SizePicker = () => {
   const dispatch = useDispatch();
-  const size = useSelector(getGridSize);
+  const size: number = useSelector(getGridSize);
 
   return (
     <View>

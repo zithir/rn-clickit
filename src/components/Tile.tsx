@@ -3,15 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import PropTypes from "prop-types";
-
 import { getActiveTile, incrementScore, resetGame } from "../ducks/game";
 import { Screens } from "../constants";
 
-const Tile = ({ tileId }) => {
+interface Props {
+  tileId: string;
+}
+
+export default ({ tileId }: Props) => {
   const wasPressed = useRef(false);
   const dispatch = useDispatch();
-  const isActive = tileId === useSelector(getActiveTile);
+  const isActive: Boolean = tileId === useSelector(getActiveTile);
   const { navigate } = useNavigation();
 
   useEffect(() => {
@@ -43,8 +45,6 @@ const Tile = ({ tileId }) => {
   );
 };
 
-Tile.propTypes = {};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -54,5 +54,3 @@ const styles = StyleSheet.create({
     borderColor: "#000"
   }
 });
-
-export default Tile;
