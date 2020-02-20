@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-import TitleGrid from "./TileGrid";
+import TitleGrid from "../components/TileGrid";
 import useRungame from "../hooks/useRunGame";
 
 const Game = () => {

@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { MainMenu, Game } from "./components";
 import { Provider, useSelector } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 
+import { MainMenu, Game } from "./screens";
 import { Screens } from "./constants";
 import gameReducer, {
   getCurrentScore,

@@ -1,8 +1,8 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 
-import Configuration from "./Configuration";
-import MaxScore from "./MaxScore";
+import Configuration from "../components/Configuration";
+import MaxScore from "../components/MaxScore";
 import { Screens } from "../constants";
 import { useGetHighestScore } from "../hooks/useGetHighestScore";
 
