@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Picker, View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import {
   getGridSize,
@@ -38,9 +38,9 @@ export default () => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   columns: {
     flex: 1,
     flexDirection: "row"
   }
-};
+});
