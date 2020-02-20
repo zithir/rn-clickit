@@ -4,7 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider, useSelector } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-import { MainMenu, Game } from './screens';
+import useGetHighestScore from './hooks/useGetHighestScore';
+import { MainMenu, Game, About, Settings } from './screens';
 import { Screens } from './constants';
 import gameReducer, {
   getCurrentScore,
@@ -13,11 +14,12 @@ import gameReducer, {
 
 const store = createStore(
   gameReducer,
-  applyMiddleware(updateHighestScoreMiddleware)
+  applyMiddleware(updateHighestScoreMiddleware),
 );
 const Stack = createStackNavigator();
 
 const App = (): ReactElement => {
+  useGetHighestScore();
   const score: number = useSelector(getCurrentScore);
 
   return (
@@ -26,13 +28,15 @@ const App = (): ReactElement => {
         <Stack.Screen
           name={Screens.MAIN_MENU}
           component={MainMenu}
-          options={{ title: 'Welcome to the game' }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name={Screens.GAME}
           component={Game}
           options={{ title: `Score ${score}` }}
         />
+        <Stack.Screen name={Screens.ABOUT} component={About} />
+        <Stack.Screen name={Screens.SETTINGS} component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

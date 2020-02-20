@@ -6,3 +6,5 @@ export default StyleSheet.create({
 });
 
 export { default as COLORS } from './_colors';
+
+export { ICON_SIZE } from './_utils';

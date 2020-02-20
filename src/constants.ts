@@ -1,4 +1,9 @@
-export const Screens = { MAIN_MENU: 'Menu', GAME: 'Game' };
+export const Screens = {
+  MAIN_MENU: 'Menu',
+  GAME: 'Game',
+  SETTINGS: 'Settings',
+  ABOUT: 'About',
+};
 
 export interface ConfigItem {
   label: string;
