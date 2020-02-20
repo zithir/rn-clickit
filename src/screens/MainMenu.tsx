@@ -1,16 +1,16 @@
-import React from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import React, { ReactElement } from 'react';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-import Configuration from "../components/Configuration";
-import MaxScore from "../components/MaxScore";
-import { Screens } from "../constants";
-import { useGetHighestScore } from "../hooks/useGetHighestScore";
+import Configuration from '../components/Configuration';
+import MaxScore from '../components/MaxScore';
+import { Screens } from '../constants';
+import useGetHighestScore from '../hooks/useGetHighestScore';
 
-import { Navigation } from "../types";
+import { Navigation } from '../types';
 
-import globalStyles, { COLORS } from "../style";
+import globalStyles, { COLORS } from '../style';
 
-export default ({ navigation: { navigate } }: Navigation) => {
+export default ({ navigation: { navigate } }: Navigation): ReactElement => {
   useGetHighestScore();
 
   return (
@@ -24,7 +24,7 @@ export default ({ navigation: { navigate } }: Navigation) => {
       <View style={globalStyles.centerItems}>
         <TouchableOpacity
           style={[styles.bigButton]}
-          onPress={() => navigate(Screens.GAME)}
+          onPress={(): void => navigate(Screens.GAME)}
         >
           <Text style={styles.bigButton_text}>Start game</Text>
         </TouchableOpacity>
@@ -36,17 +36,17 @@ export default ({ navigation: { navigate } }: Navigation) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff',
   },
   bigButton: {
     width: 200,
     height: 60,
     backgroundColor: COLORS.Primary,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bigButton_text: {
-    color: "white",
-    fontSize: 24
-  }
+    color: 'white',
+    fontSize: 24,
+  },
 });

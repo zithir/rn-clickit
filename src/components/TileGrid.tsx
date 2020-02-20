@@ -1,25 +1,25 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import * as R from "ramda";
+import React, { ReactElement } from 'react';
+import { View, StyleSheet } from 'react-native';
+import * as R from 'ramda';
 
-import { useSelector } from "react-redux";
-import { getGridSize } from "../ducks/game";
+import { useSelector } from 'react-redux';
+import { getGridSize } from '../ducks/game';
 
-import Tile from "./Tile";
+import Tile from './Tile';
 
-const makeTile = (rowIndex: number) => (tileIndex: number) => (
+const makeTile = (rowIndex: number) => (tileIndex: number): ReactElement => (
   <Tile tileId={`${rowIndex}${tileIndex}`} key={tileIndex} />
 );
 
-const makeRow = (size: number) => (rowIndex: number) => (
-  <View style={{ flex: 1, flexDirection: "row" }} key={rowIndex}>
+const makeRow = (size: number) => (rowIndex: number): ReactElement => (
+  <View style={{ flex: 1, flexDirection: 'row' }} key={rowIndex}>
     {R.times((itemIndex: number) => makeTile(rowIndex)(itemIndex), size)}
   </View>
 );
 
-const makeGrid = (size: number) => R.times(makeRow(size), size);
+const makeGrid = (size: number): [ReactElement] => R.times(makeRow(size), size);
 
-export default () => {
+export default (): ReactElement => {
   const size: number = useSelector(getGridSize);
 
   return <View style={styles.container}>{makeGrid(size)}</View>;
@@ -27,6 +27,6 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

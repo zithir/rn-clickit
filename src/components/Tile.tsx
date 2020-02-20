@@ -1,21 +1,21 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useCallback, useEffect, useRef, ReactElement } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import { getActiveTile, incrementScore } from "../ducks/game";
-import { Screens } from "../constants";
+import { getActiveTile, incrementScore } from '../ducks/game';
+import { Screens } from '../constants';
 
-import { COLORS } from "../style";
+import { COLORS } from '../style';
 
 interface Props {
   tileId: string;
 }
 
-export default ({ tileId }: Props) => {
+export default ({ tileId }: Props): ReactElement => {
   const wasPressed = useRef(false);
   const dispatch = useDispatch();
-  const isActive: Boolean = tileId === useSelector(getActiveTile);
+  const isActive: boolean = tileId === useSelector(getActiveTile);
   const { navigate } = useNavigation();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default ({ tileId }: Props) => {
         wasPressed.current = true;
       }
     } else {
-      alert("Game over");
+      alert('Game over');
       navigate(Screens.MAIN_MENU);
     }
   }, [isActive]);
@@ -39,7 +39,7 @@ export default ({ tileId }: Props) => {
       <TouchableOpacity
         style={{
           flex: 1,
-          backgroundColor: isActive ? COLORS.Secondary : "white"
+          backgroundColor: isActive ? COLORS.Secondary : 'white',
         }}
         onPressIn={handlePress}
       >
@@ -52,9 +52,9 @@ export default ({ tileId }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderBottomWidth: 1,
     borderRightWidth: 1,
-    borderColor: "#000"
-  }
+    borderColor: '#000',
+  },
 });

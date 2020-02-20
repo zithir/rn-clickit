@@ -1,10 +1,10 @@
-import React from "react";
-import { View } from "react-native";
+import React, { ReactElement } from 'react';
+import { View } from 'react-native';
 
-import TitleGrid from "../components/TileGrid";
-import useRungame from "../hooks/useRunGame";
+import TitleGrid from '../components/TileGrid';
+import useRungame from '../hooks/useRunGame';
 
-const Game = () => {
+const Game = (): ReactElement => {
   useRungame();
 
   return (

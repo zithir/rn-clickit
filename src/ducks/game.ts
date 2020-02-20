@@ -1,6 +1,7 @@
-import { createActions, handleActions } from "redux-actions";
-import * as R from "ramda";
-import { storeData } from "../storage";
+/* eslint-disable comma-dangle */
+import { createActions, handleActions } from 'redux-actions';
+import * as R from 'ramda';
+import { storeData } from '../storage';
 
 // TODO: Make individual duck for configuration
 
@@ -16,7 +17,7 @@ const defaultState: State = {
   gameSpeed: 750,
   activeTile: null,
   currentScore: 0,
-  highestScore: 0
+  highestScore: 0,
 };
 
 interface Actions {
@@ -31,35 +32,35 @@ export const {
   stopGame,
   setHighestScore,
   resetCurrentScore,
-  updateHighestScore
+  updateHighestScore,
 }: Actions = createActions(
-  "SET_GRID_SIZE",
-  "SET_GAME_SPEED",
-  "SET_ACTIVE_TILE",
-  "INCREMENT_SCORE",
-  "STOP_GAME",
-  "SET_HIGHEST_SCORE",
-  "RESET_CURRENT_SCORE",
-  "UPDATE_HIGHEST_SCORE"
+  'SET_GRID_SIZE',
+  'SET_GAME_SPEED',
+  'SET_ACTIVE_TILE',
+  'INCREMENT_SCORE',
+  'STOP_GAME',
+  'SET_HIGHEST_SCORE',
+  'RESET_CURRENT_SCORE',
+  'UPDATE_HIGHEST_SCORE'
 );
 
-export const getGridSize: Function = R.prop("gridSize");
-export const getGameSpeed: Function = R.prop("gameSpeed");
-export const getActiveTile: Function = R.prop("activeTile");
-export const getCurrentScore: Function = R.prop("currentScore");
-export const getHighestScore: Function = R.prop("highestScore");
+export const getGridSize: Function = R.prop('gridSize');
+export const getGameSpeed: Function = R.prop('gameSpeed');
+export const getActiveTile: Function = R.prop('activeTile');
+export const getCurrentScore: Function = R.prop('currentScore');
+export const getHighestScore: Function = R.prop('highestScore');
 
 export const updateHighestScoreMiddleware: Function = ({
   getState,
-  dispatch
-}) => next => action => {
-  if (action.type === "UPDATE_HIGHEST_SCORE") {
+  dispatch,
+}) => (next): any => (action): any => {
+  if (action.type === 'UPDATE_HIGHEST_SCORE') {
     const state = getState();
     const currentScore = getCurrentScore(state);
     const highestScore = getHighestScore(state);
 
     if (highestScore < currentScore) {
-      storeData("score", currentScore.toString());
+      storeData('score', currentScore.toString());
       dispatch(setHighestScore(currentScore));
     }
     dispatch(resetCurrentScore());
@@ -72,32 +73,32 @@ const reducer: Function = handleActions(
   {
     [setGridSize]: (state, { payload }) => ({
       ...state,
-      gridSize: payload
+      gridSize: payload,
     }),
     [setGameSpeed]: (state, { payload }) => ({
       ...state,
-      gameSpeed: payload
+      gameSpeed: payload,
     }),
     [setActiveTile]: (state, { payload }) => ({
       ...state,
-      activeTile: payload
+      activeTile: payload,
     }),
     [incrementScore]: state => ({
       ...state,
-      currentScore: getCurrentScore(state) + 1
+      currentScore: getCurrentScore(state) + 1,
     }),
     [setHighestScore]: (state, { payload }) => ({
       ...state,
-      highestScore: payload
+      highestScore: payload,
     }),
     [stopGame]: state => ({
       ...state,
-      activeTile: defaultState.activeTile
+      activeTile: defaultState.activeTile,
     }),
     [resetCurrentScore]: state => ({
       ...state,
-      currentScore: defaultState.currentScore
-    })
+      currentScore: defaultState.currentScore,
+    }),
   },
   defaultState
 );

@@ -1,15 +1,15 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Provider, useSelector } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import React, { ReactElement } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider, useSelector } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
-import { MainMenu, Game } from "./screens";
-import { Screens } from "./constants";
+import { MainMenu, Game } from './screens';
+import { Screens } from './constants';
 import gameReducer, {
   getCurrentScore,
-  updateHighestScoreMiddleware
-} from "./ducks/game";
+  updateHighestScoreMiddleware,
+} from './ducks/game';
 
 const store = createStore(
   gameReducer,
@@ -17,7 +17,7 @@ const store = createStore(
 );
 const Stack = createStackNavigator();
 
-const App = () => {
+const App = (): ReactElement => {
   const score: number = useSelector(getCurrentScore);
 
   return (
@@ -26,7 +26,7 @@ const App = () => {
         <Stack.Screen
           name={Screens.MAIN_MENU}
           component={MainMenu}
-          options={{ title: "Welcome to the game" }}
+          options={{ title: 'Welcome to the game' }}
         />
         <Stack.Screen
           name={Screens.GAME}
@@ -38,7 +38,7 @@ const App = () => {
   );
 };
 
-export default () => (
+export default (): ReactElement => (
   <Provider store={store}>
     <App />
   </Provider>

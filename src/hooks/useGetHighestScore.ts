@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loadHighestScore } from "../storage";
-import { setHighestScore } from "../ducks/game";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadHighestScore } from '../storage';
+import { setHighestScore } from '../ducks/game';
 
-export const useGetHighestScore = () => {
+export default (): void => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getScoreFromStorage = async () => {
+    const getScoreFromStorage = async (): Promise<void> => {
       const score = await loadHighestScore();
       dispatch(setHighestScore(score));
     };
