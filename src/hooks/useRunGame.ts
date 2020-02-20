@@ -1,13 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as R from 'ramda';
-import {
-  setActiveTile,
-  getGridSize,
-  stopGame,
-  updateHighestScore,
-  getGameSpeed,
-} from '../ducks/game';
+import { setActiveTile, stopGame, updateHighestScore } from '../ducks/game';
+
+import { getGridSize, getGameSpeed } from '../ducks/settings';
 
 const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
 

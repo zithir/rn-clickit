@@ -6,7 +6,7 @@ import {
   setGridSize,
   getGameSpeed,
   setGameSpeed,
-} from '../ducks/game';
+} from '../ducks/settings';
 import { GameSpeed, GridSize } from '../constants';
 import ConfigurationPicker from './ConfigurationPicker';
 

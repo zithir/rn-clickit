@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import * as R from 'ramda';
 
 import { useSelector } from 'react-redux';
-import { getGridSize } from '../ducks/game';
+import { getGridSize } from '../ducks/settings';
 
 import Tile from './Tile';
 

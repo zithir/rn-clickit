@@ -1,32 +1,12 @@
-/* eslint-disable comma-dangle */
 import { createActions, handleActions } from 'redux-actions';
 import * as R from 'ramda';
+
 import { storeData } from '../storage';
+import { Actions } from './types';
 
-// TODO: Make individual duck for configuration
-
-interface State {
-  gridSize: number;
-  gameSpeed: number;
-  activeTile: null | string;
-  currentScore: number;
-  highestScore: number;
-}
-const defaultState: State = {
-  gridSize: 3,
-  gameSpeed: 750,
-  activeTile: null,
-  currentScore: 0,
-  highestScore: 0,
-};
-
-interface Actions {
-  [key: string]: any;
-}
+const REDUCER_NAME = 'game';
 
 export const {
-  setGridSize,
-  setGameSpeed,
   setActiveTile,
   incrementScore,
   stopGame,
@@ -34,21 +14,17 @@ export const {
   resetCurrentScore,
   updateHighestScore,
 }: Actions = createActions(
-  'SET_GRID_SIZE',
-  'SET_GAME_SPEED',
   'SET_ACTIVE_TILE',
   'INCREMENT_SCORE',
   'STOP_GAME',
   'SET_HIGHEST_SCORE',
   'RESET_CURRENT_SCORE',
-  'UPDATE_HIGHEST_SCORE'
+  'UPDATE_HIGHEST_SCORE',
 );
 
-export const getGridSize: Function = R.prop('gridSize');
-export const getGameSpeed: Function = R.prop('gameSpeed');
-export const getActiveTile: Function = R.prop('activeTile');
-export const getCurrentScore: Function = R.prop('currentScore');
-export const getHighestScore: Function = R.prop('highestScore');
+export const getActiveTile: Function = R.path([REDUCER_NAME, 'activeTile']);
+export const getCurrentScore: Function = R.path([REDUCER_NAME, 'currentScore']);
+export const getHighestScore: Function = R.path([REDUCER_NAME, 'highestScore']);
 
 export const updateHighestScoreMiddleware: Function = ({
   getState,
@@ -69,24 +45,31 @@ export const updateHighestScoreMiddleware: Function = ({
   next(action);
 };
 
+interface State {
+  activeTile: null | string;
+  currentScore: number;
+  highestScore: number;
+}
+const defaultState: State = {
+  activeTile: null,
+  currentScore: 0,
+  highestScore: 0,
+};
+
 const reducer: Function = handleActions(
   {
-    [setGridSize]: (state, { payload }) => ({
-      ...state,
-      gridSize: payload,
-    }),
-    [setGameSpeed]: (state, { payload }) => ({
-      ...state,
-      gameSpeed: payload,
-    }),
     [setActiveTile]: (state, { payload }) => ({
       ...state,
       activeTile: payload,
     }),
-    [incrementScore]: state => ({
-      ...state,
-      currentScore: getCurrentScore(state) + 1,
-    }),
+    [incrementScore]: state => {
+      console.log('State', state.currentScore);
+
+      return {
+        ...state,
+        currentScore: state.currentScore + 1,
+      };
+    },
     [setHighestScore]: (state, { payload }) => ({
       ...state,
       highestScore: payload,
@@ -100,7 +83,7 @@ const reducer: Function = handleActions(
       currentScore: defaultState.currentScore,
     }),
   },
-  defaultState
+  defaultState,
 );
 
 export default reducer;
