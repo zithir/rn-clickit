@@ -7,17 +7,28 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import useGetHighestScore from './hooks/useGetHighestScore';
 import { MainMenu, Game, About, Settings } from './screens';
 import { Screens } from './constants';
-import gameReducer, {
+import gameReducer from './ducks/game';
+import settingsReducer from './ducks/settings';
+import scoreReducer, {
   getCurrentScore,
   updateHighestScoreMiddleware,
-} from './ducks/game';
-import settingsReducer from './ducks/settings';
+  applyScoreModifiersMiddleware,
+} from './ducks/score';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  combineReducers({ game: gameReducer, settings: settingsReducer }),
-  composeEnhancers(applyMiddleware(updateHighestScoreMiddleware)),
+  combineReducers({
+    game: gameReducer,
+    settings: settingsReducer,
+    score: scoreReducer,
+  }),
+  composeEnhancers(
+    applyMiddleware(
+      updateHighestScoreMiddleware,
+      applyScoreModifiersMiddleware,
+    ),
+  ),
 );
 const Stack = createStackNavigator();
 

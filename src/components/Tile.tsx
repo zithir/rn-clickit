@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { getActiveTile, incrementScore } from '../ducks/game';
+import { getActiveTile } from '../ducks/game';
+import { incrementScore } from '../ducks/score';
 import { Screens } from '../constants';
 
 import { COLORS } from '../style';

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { getHighestScore } from '../ducks/game';
+import { getHighestScore } from '../ducks/score';
 
 import globalStyle from '../style';
 
