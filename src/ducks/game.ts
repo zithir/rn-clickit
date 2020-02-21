@@ -12,13 +12,18 @@ export const { setActiveTile, stopGame }: Actions = createActions(
 
 export const getActiveTile: Function = R.path([REDUCER_NAME, 'activeTile']);
 
+export interface ActiveTile {
+  tileId: string;
+  clickable: boolean;
+}
+
 interface State {
-  activeTile: null | string;
+  activeTile: ActiveTile;
   currentScore: number;
   highestScore: number;
 }
 const defaultState: State = {
-  activeTile: null,
+  activeTile: { tileId: null, clickable: false },
   currentScore: 0,
   highestScore: 0,
 };

@@ -10,10 +10,7 @@ export default (): ReactElement => {
   const highestScore = useSelector(getHighestScore);
   return (
     <View>
-      <Text style={globalStyle.heading}>
-        Best Score:
-        {highestScore}
-      </Text>
+      <Text style={globalStyle.heading}>{`Best Score: ${highestScore}`}</Text>
     </View>
   );
 };

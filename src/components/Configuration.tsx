@@ -19,8 +19,10 @@ export default (): ReactElement => {
 
   return (
     <View style={[globalStyle.centerItems]}>
-      <Text style={globalStyle.heading}>Select difficulty: </Text>
       <View style={[globalStyle.centerItems]}>
+        <Text style={[globalStyle.heading, { marginBottom: 16 }]}>
+          Select difficulty:{' '}
+        </Text>
         <ConfigurationPicker
           name="Speed"
           items={GameSpeed}

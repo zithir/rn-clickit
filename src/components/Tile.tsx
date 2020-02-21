@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { getActiveTile } from '../ducks/game';
+import { getActiveTile, ActiveTile } from '../ducks/game';
 import { incrementScore } from '../ducks/score';
 import { Screens } from '../constants';
 
@@ -13,10 +13,21 @@ interface Props {
   tileId: string;
 }
 
+const getColor = (isActive, isClickable): string => {
+  if (isActive) {
+    return isClickable ? COLORS.Danger : COLORS.Secondary;
+  }
+  return COLORS.Background;
+};
+
+// TODO: Optimize by passing isActive and isClicable from TileGrid, memoize
+
 export default ({ tileId }: Props): ReactElement => {
   const wasPressed = useRef(false);
   const dispatch = useDispatch();
-  const isActive: boolean = tileId === useSelector(getActiveTile);
+  const activeTile: ActiveTile = useSelector(getActiveTile);
+  const isActive = tileId === activeTile.tileId;
+  const { clickable } = activeTile;
   const { navigate } = useNavigation();
 
   useEffect(() => {
@@ -24,7 +35,7 @@ export default ({ tileId }: Props): ReactElement => {
   }, [isActive]);
 
   const handlePress = useCallback(() => {
-    if (isActive) {
+    if (isActive && clickable) {
       if (!wasPressed.current) {
         dispatch(incrementScore());
         wasPressed.current = true;
@@ -40,7 +51,7 @@ export default ({ tileId }: Props): ReactElement => {
       <TouchableOpacity
         style={{
           flex: 1,
-          backgroundColor: isActive ? COLORS.Secondary : 'white',
+          backgroundColor: getColor(isActive, clickable),
         }}
         onPressIn={handlePress}
       >

@@ -11,8 +11,14 @@ const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
 const getRandomTile = (gridSize: number): number =>
   `${getRandomInt(gridSize)}${getRandomInt(gridSize)}`;
 
-// The handles active game session
+const numToBool = R.equals(1);
 
+const getActiveTile = size => ({
+  tileId: getRandomTile(size),
+  clickable: numToBool(getRandomInt(2)),
+});
+
+// Handles active game session
 export default (): void => {
   const dispatch = useDispatch();
   const isActiveTile = useRef(false);
@@ -20,12 +26,12 @@ export default (): void => {
   const gameSpeed: number = useSelector(getGameSpeed);
 
   const dispatchActivateRandomTitle = (): void =>
-    R.compose(dispatch, setActiveTile, getRandomTile)(gridSize);
+    R.compose(dispatch, setActiveTile, getActiveTile)(gridSize);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (isActiveTile.current) {
-        dispatch(setActiveTile(null));
+        dispatch(setActiveTile({ tileId: null, clickable: false }));
       } else {
         dispatchActivateRandomTitle();
       }
