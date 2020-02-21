@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
 import { AsyncStorage } from 'react-native';
+import * as R from 'ramda';
+
+const getStorageKeyMeta = R.path(['meta', 'storageKey']);
 
 export const storeData = async (key: string, value: any): Promise<any> => {
   try {
@@ -9,7 +12,7 @@ export const storeData = async (key: string, value: any): Promise<any> => {
   }
 };
 
-const getData = async (key: string): Promise<any> => {
+export const getData = async (key: string): Promise<any> => {
   try {
     const value = await AsyncStorage.getItem(key);
     return value;
@@ -19,7 +22,18 @@ const getData = async (key: string): Promise<any> => {
   }
 };
 
-export const loadHighestScore = async (): Promise<number> => {
-  const score = await getData('score');
-  return Number(score) || 0;
+// metaCreator that extends actions's meta object with storageKey of specified value
+export const addStorageKeyMeta = key => meta => ({
+  ...meta,
+  storageKey: key,
+});
+
+export const saveToStorageMiddleware = () => (next): any => (action): any => {
+  if (getStorageKeyMeta(action)) {
+    storeData(
+      getStorageKeyMeta(action),
+      action.payload ? action.payload.toString() : null,
+    );
+  }
+  next(action);
 };

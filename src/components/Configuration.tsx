@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import {
   getGridSize,
@@ -9,32 +10,36 @@ import {
 } from '../ducks/settings';
 import { GameSpeed, GridSize } from '../constants';
 import ConfigurationPicker from './ConfigurationPicker';
+import { setHighestScore } from '../ducks/score';
 
 import globalStyle from '../style';
 
-export default (): ReactElement => (
-  <View style={[globalStyle.centerItems]}>
-    <Text style={globalStyle.heading}>Select difficulty: </Text>
-    <View style={[globalStyle.centerItems, styles.columns]}>
-      <ConfigurationPicker
-        name="Speed"
-        items={GameSpeed}
-        valueSelector={getGameSpeed}
-        setValueAction={setGameSpeed}
-      />
-      <ConfigurationPicker
-        name="Size"
-        items={GridSize}
-        valueSelector={getGridSize}
-        setValueAction={setGridSize}
-      />
-    </View>
-  </View>
-);
+export default (): ReactElement => {
+  const dispatch = useDispatch();
 
-const styles = StyleSheet.create({
-  columns: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-});
+  return (
+    <View style={[globalStyle.centerItems]}>
+      <Text style={globalStyle.heading}>Select difficulty: </Text>
+      <View style={[globalStyle.centerItems]}>
+        <ConfigurationPicker
+          name="Speed"
+          items={GameSpeed}
+          valueSelector={getGameSpeed}
+          setValueAction={setGameSpeed}
+        />
+        <ConfigurationPicker
+          name="Size"
+          items={GridSize}
+          valueSelector={getGridSize}
+          setValueAction={setGridSize}
+        />
+        <Button
+          title="Reset score"
+          onPress={() => {
+            dispatch(setHighestScore(0));
+          }}
+        />
+      </View>
+    </View>
+  );
+};

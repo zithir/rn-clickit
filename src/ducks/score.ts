@@ -1,10 +1,10 @@
-import { createActions, handleActions } from 'redux-actions';
+import { createActions, createAction, handleActions } from 'redux-actions';
 import * as R from 'ramda';
 
-import { storeData } from '../storage';
 import { Actions } from './types';
 import { getGameSpeed, getGridSize } from './settings';
-import { GameSpeed, GridSize } from '../constants';
+import { GameSpeed, GridSize, StorageData } from '../constants';
+import { addStorageKeyMeta } from '../storage';
 
 const REDUCER_NAME = 'score';
 
@@ -18,14 +18,19 @@ const findIndexIn = R.curry((comparator, array, value) =>
 
 export const {
   incrementScore,
-  setHighestScore,
   resetCurrentScore,
   updateHighestScore,
 }: Actions = createActions(
   'INCREMENT_SCORE',
-  'SET_HIGHEST_SCORE',
   'RESET_CURRENT_SCORE',
   'UPDATE_HIGHEST_SCORE',
+);
+
+// Action whose payload should be saved to asyncStoreage as well
+export const setHighestScore = createAction(
+  'SET_HIGHEST_SCORE',
+  R.identity,
+  addStorageKeyMeta(StorageData.SCORE.key),
 );
 
 export const getCurrentScore: Function = R.path([REDUCER_NAME, 'currentScore']);
@@ -40,7 +45,6 @@ export const updateHighestScoreMiddleware = ({ getState, dispatch }) => (
     const highestScore = getHighestScore(state);
 
     if (highestScore < currentScore) {
-      storeData('score', currentScore.toString());
       dispatch(setHighestScore(currentScore));
     }
     dispatch(resetCurrentScore());

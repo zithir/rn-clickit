@@ -16,9 +16,6 @@ export default ({ navigation: { navigate } }: Navigation): ReactElement => {
       <View style={[globalStyles.centerItems]}>
         <MaxScore />
       </View>
-      <View style={globalStyles.centerItems}>
-        <Configuration />
-      </View>
       <View style={{ flex: 1 }}>
         <View style={globalStyles.centerItems}>
           <TouchableOpacity

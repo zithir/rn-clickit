@@ -24,3 +24,9 @@ export const GameSpeed: ConfigItem[] = [
   { label: 'Medium', value: 750 },
   { label: 'Fast', value: 500 },
 ];
+
+export const StorageData = {
+  SCORE: { key: 'score' },
+  SPEED: { key: 'speed' },
+  SIZE: { key: 'size' },
+};

@@ -1,15 +1,13 @@
 import React, { ReactElement } from 'react';
-import { View, Text, Picker } from 'react-native';
+import { View, Text, Picker, StyleSheet } from 'react-native';
 import * as R from 'ramda';
 import { useSelector, useDispatch } from 'react-redux';
-
-import globalStyle from '../style';
 
 const makePickerItems = R.map(({ label, value }) => (
   <Picker.Item label={label} value={value} key={label} />
 ));
 
-const ConfigurationPicker = ({
+export default ({
   name,
   items,
   valueSelector,
@@ -19,7 +17,7 @@ const ConfigurationPicker = ({
   const currentValue = useSelector(valueSelector);
 
   return (
-    <View style={globalStyle.centerItems}>
+    <View style={styles.container}>
       <Text>{name}</Text>
       <Picker
         style={{ width: 150 }}
@@ -34,4 +32,8 @@ const ConfigurationPicker = ({
   );
 };
 
-export default ConfigurationPicker;
+const styles = StyleSheet.create({
+  container: {
+    alignContent: 'center',
+  },
+});

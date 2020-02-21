@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider, useSelector } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 
-import useGetHighestScore from './hooks/useGetHighestScore';
+import useGetStorageData from './hooks/useGetStorageData';
 import { MainMenu, Game, About, Settings } from './screens';
 import { Screens } from './constants';
 import gameReducer from './ducks/game';
@@ -14,6 +14,7 @@ import scoreReducer, {
   updateHighestScoreMiddleware,
   applyScoreModifiersMiddleware,
 } from './ducks/score';
+import { saveToStorageMiddleware } from './storage';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -27,13 +28,14 @@ const store = createStore(
     applyMiddleware(
       updateHighestScoreMiddleware,
       applyScoreModifiersMiddleware,
+      saveToStorageMiddleware,
     ),
   ),
 );
 const Stack = createStackNavigator();
 
 const App = (): ReactElement => {
-  useGetHighestScore();
+  useGetStorageData();
   const score: number = useSelector(getCurrentScore);
 
   return (
