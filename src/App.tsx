@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider, useSelector } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-
 import useGetStorageData from './hooks/useGetStorageData';
 import { MainMenu, Game, About, Settings } from './screens';
 import { Screens } from './constants';
@@ -15,6 +14,8 @@ import scoreReducer, {
   applyScoreModifiersMiddleware,
 } from './ducks/score';
 import { saveToStorageMiddleware } from './storage';
+import { StatusBar, View, StyleSheet } from 'react-native';
+import expoConstants from 'expo-constants';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -40,6 +41,8 @@ const App = (): ReactElement => {
 
   return (
     <NavigationContainer>
+      <StatusBar translucent barStyle="dark-content" backgroundColor="white" />
+      <View style={styles.statusBar} />
       <Stack.Navigator>
         <Stack.Screen
           name={Screens.MAIN_MENU}
@@ -63,3 +66,10 @@ export default (): ReactElement => (
     <App />
   </Provider>
 );
+
+const styles = StyleSheet.create({
+  statusBar: {
+    height: expoConstants.statusBarHeight,
+  },
+});
+

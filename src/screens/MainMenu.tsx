@@ -1,13 +1,9 @@
 import React, { ReactElement } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-
-import Configuration from '../components/Configuration';
 import MaxScore from '../components/MaxScore';
 import { Screens } from '../constants';
-
 import { Navigation } from '../types';
-
 import globalStyles, { COLORS, ICON_SIZE } from '../style';
 
 export default ({ navigation: { navigate } }: Navigation): ReactElement => {
